@@ -1,0 +1,32 @@
+body {
+    background-color:#F6F8FA;
+}
+.container {
+    margin: 5px auto;
+    display: block;
+    text-align: center;
+    padding: 15px;
+}
+header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h1 {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 8em;
+    opacity: 0.7;
+    color: #72ABEC;
+    text-shadow: 3px 3px 3px;
+}
+#main {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+
+
+footer {
+    font-size: 12px;
+}
