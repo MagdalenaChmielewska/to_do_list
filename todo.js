@@ -11,9 +11,9 @@ function TodoList() {
     }
 
     // JSON object
-    addTask({ description: "create todo list", priority: "high" })
-    addTask({ description: "add filtering by priority", priority: "medium" })
-    addTask({ description: "use rest api backend", priority: "low" })
+    addTask({ description: 'create todo list', priority: 'high'})
+    addTask({ description: 'add filtering by priority', priority: 'medium'})
+    addTask({ description: 'use rest api backend', priority: 'low'})
 
     return {
         get_task: function (task_id) {
@@ -44,33 +44,26 @@ var todoList = new TodoList();
 
 function add() {
     var description = document.getElementById('task').value;
-
-    todoList.add_task({ "description": description, "priority": "low" })
-
+    todoList.add_task({'description': description, 'priority': 'low' })
     show();
-
     return false;
 }
 
 function remove() {
     var id = this.getAttribute('id');
     todoList.remove_task(id);
-
     show();
-
     return false;
 }
 
 function show() {
     var html = '<ul>';
     for (var todo of todoList.all_tasks()) {
-        html += '<li>' + todo.description + '<button class="remove" id="' + todo.id + '">x</button></li>';
+        html += '<li><div class="input-group"><span class="input-group"><input type="checkbox" id="checkbox"><label for="checkbox">' + todo.description + 
+        '</label></span><span class="input-group-btn"><button aria-label="Close" class="close remove" id="' + todo.id + '"><span aria-hidden="true">&times;</span></button></span></div></li><hr>';
     }
-
     html += '</ul>';
-
     document.getElementById('todos').innerHTML = html;
-
     var buttons = document.getElementsByClassName('remove');
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', remove);

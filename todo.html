@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
       crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Caveat+Brush" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ranga" rel="stylesheet">
     <link href="css/todo-reset.css" rel="stylesheet">
     <link href="css/todo.css" rel="stylesheet">
   </head>
@@ -30,10 +31,11 @@
     <main>
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 col-lg-offset-3" id="main">
-            <input id="task"><button id="add">Add</button>
+          <div class="col-lg-8 col-lg-offset-2" id="main">
+            <div class="col-lg-10"><input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus></div>
+            <div class="col-lg-2"><button id="add" class="btn btn-default btn-lg">Add</button></div>
             <hr>
-            <div id="todos"></div>
+            <div id="todos" class="col-lg-12"></div>
           </div>
         </div>
       </div>
