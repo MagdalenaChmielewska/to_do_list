@@ -31,11 +31,28 @@
     <main>
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2" id="main">
-            <div class="col-lg-10"><input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus></div>
-            <div class="col-lg-2"><button id="add" class="btn btn-default btn-lg">Add</button></div>
-            <hr>
-            <div id="todos" class="col-lg-12"></div>
+          <div class="col-lg-8 col-lg-offset-2 main-all" id="main">
+            <form>
+              <div class="col-lg-10"><input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus></div>
+              <div class="col-lg-2"><button id="add" class="btn btn-default btn-lg">Add</button></div>
+              <div id="todos" class="col-lg-12"></div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 main-all" id="div-badge">
+            <p class="pull-right"><span class="badge" id="counter"></span> items left</p>
+            <br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 main-all " id="main-footer">
+              <div class="col-lg-1" id="select1"><a href="javascript:void(0)" title="Select All" onClick="selectAll()"><img src="img/select.png" alt="select-all" class="select-all"/><center>Select All</center></a></div>
+              <div class="col-lg-1"><a href="javascript:void(0)" title="Deselect All" onClick="deselectAll()"><img src="img/select.png" alt="deselect-all" class="deselect-all"/><center>Deselect All</center></a></div>
+              <div class="col-lg-2 col-lg-offset-1"><p class="btn btn-default active" id="all" onClick="allButton()">All</p></div>
+              <div class="col-lg-2"><p class="btn btn-default" id="active" onClick="activeButton()">Active</p></div>
+              <div class="col-lg-2"><p class="btn btn-default" id="Completed" onClick="completedButton()">Completed</p></div>
+              <div class="col-lg-2 col-lg-offset-1"><p class="btn btn-default" id="compl-remove" onClick="clearButton()">Clear Completed</p></div>
           </div>
         </div>
       </div>
