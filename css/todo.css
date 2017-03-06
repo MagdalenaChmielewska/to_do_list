@@ -29,6 +29,10 @@ h1 {
 #div-badge {
     padding-top: 0;
 }
+#counter {
+    font-family: 'Caveat Brush', cursive;
+    font-size: 17px;
+}
 #main {  
     text-align: left;
     font-size: 25px;
@@ -69,6 +73,9 @@ input[type=checkbox]:checked + label {
 	text-decoration: line-through;
     opacity: 0.5;
 }
+.edit-input {
+    display: none;
+}
 .style {
     margin: 12px;
     padding: 10px;
@@ -85,7 +92,7 @@ input[type=checkbox]:checked + label {
     clear: none;
 }
 a {
-    color: #444;
+    color:#726F6F;
     text-decoration: none;
 }
 a:hover {
@@ -95,10 +102,28 @@ a:hover {
 img.deselect-all {
     opacity: 0.5;
 }
-
+.filterButton {
+    color:#9F9F9F;
+    padding-top: 15px;
+}
+.filterButton:hover {
+    color: black;
+}
+#all, #active {
+    border-right: 1px dashed;
+    margin: auto;
+    padding-right: 15px;
+    padding-left: 0;
+}
+.active {
+    color: black;
+}
+#compl-remove {
+    font-size: 19px;
+}
 footer {
     font-size: 12px;
 }
-footer p{
+footer p {
     padding: 3px;
 }

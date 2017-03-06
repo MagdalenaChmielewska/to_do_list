@@ -1,5 +1,4 @@
 function TodoList() {
-    // documentation of Map https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
     var tasks = new Map();
     var current_id = 0;
     var addTask = function (task) {
@@ -9,9 +8,9 @@ function TodoList() {
         return task;
     }
     // JSON object
-    addTask({ description: 'create todo list', priority: 'high', completed: false})
-    addTask({ description: 'add filtering by priority', priority: 'medium', completed: false})
-    addTask({ description: 'use rest api backend', priority: 'low', completed: false})
+    addTask({ description: 'create todo list', completed: false});
+    addTask({ description: 'add filtering by priority', completed: false});
+    addTask({ description: 'use rest api backend', completed: false});
 
     return {
         complete_task: function (task_id) {
@@ -22,6 +21,11 @@ function TodoList() {
         uncomplete_task : function(task_id) {
             task = tasks.get(parseInt(task_id));
             task.completed = false;
+            return task;
+        },
+        edit_task: function(task_id, description) {
+            task = tasks.get(parseInt(task_id));
+            task.description = description;
             return task;
         },
         get_task: function (task_id) {
@@ -37,10 +41,6 @@ function TodoList() {
             return tasks.values();
         },
         print_all: function () {
-            // for (var i = 0 ; i < tasks.length ; i++)
-            // {
-            //     console.log(tasks[i])
-            // }
             for (var v of tasks) {
                 console.log(v);
             }
@@ -51,15 +51,31 @@ var todoList = new TodoList();
 
 function add() {
     var description = document.getElementById('task').value;
-    todoList.add_task({'description': description, 'priority': 'low', completed: false})
-    show();
+    todoList.add_task({'description': description, 'completed': false});
+    showTaskList();
     return false;
 }
 
 function remove() {
     var id = this.getAttribute('id');
     todoList.remove_task(id);
-    show();
+    showTaskList();
+    return false;
+}
+
+function changeLabel() {
+    var id = this.getAttribute('id');
+    var description = $('label[id="' + id + '"]').val();
+    $('label[id="' + id + '"]').hide();
+    $('.edit-input[id="' + id + '"]').show().focus();
+    return false;
+}
+
+function labelChanged() {
+    var id = this.getAttribute('id');
+    var description = $('.edit-input[id="' + id + '"]').val();
+    todoList.edit_task(id, description);
+    showTaskList();
     return false;
 }
 
@@ -73,7 +89,7 @@ function changeStatus(task_id) {
     } else {
         todoList.complete_task(task_id)
     }
-    show(); 
+    showTaskList(); 
 }
 
 function isTaskCompleted(task_id) {
@@ -89,13 +105,12 @@ function checkedProperty(task_id) {
     }
 }
 
-var showTaskList = function() {
+var taskList = function() {
     var html = '';
     for (var todo of todoList.all_tasks()) {
         var onclick ="onClick=\"changeStatus(" + todo.id + ")\"";
         var checked = checkedProperty(todo.id);
-        html += '<div class="input-group style"><span class="input-group"><input type="checkbox" id="' + todo.id + '" ' + onclick + ' ' + checked + '><label for="checkbox">' + todo.description + 
-        '</label></span><span class="input-group-btn"><button aria-label="Close" class="close remove" id="' + todo.id + '"><span aria-hidden="true">&times;</span></button></span></div>';
+        html += '<div class="input-group style"><span class="input-group"><input type="checkbox" id="' + todo.id + '" ' + onclick + ' ' + checked + '><label for="checkbox" id="' + todo.id + '" class="edit">' + todo.description + '</label><input class="edit-input" id="' + todo.id + '" /></span><span class="input-group-btn"><button aria-label="Close" class="close remove" id="' + todo.id + '"><span aria-hidden="true">&times;</span></button></span></div>';
     }
 
     document.getElementById('todos').innerHTML = html;
@@ -103,7 +118,17 @@ var showTaskList = function() {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', remove);
     };
-}
+  
+    var edit = document.getElementsByClassName('edit');
+    for (var i = 0; i < edit.length; i++) {
+        edit[i].addEventListener('dblclick', changeLabel);
+    };
+
+    var edit_inputs = document.getElementsByClassName('edit-input');
+    for (var i = 0; i < edit_inputs.length; i++) {
+        edit_inputs[i].addEventListener('focusout', labelChanged);
+    };
+}    
 
 var filterTasksBy = function(filter) {
     if(activeFilter == "all") {
@@ -117,14 +142,14 @@ var filterTasksBy = function(filter) {
 var calculateCounter = function() {
     counter();
 }
-function show() {
-    showTaskList();
+function showTaskList() {
+    taskList();
     filterTasksBy(activeFilter);
     calculateCounter();
 }
 
 document.getElementById('add').addEventListener('click', add);
-show();
+showTaskList();
 
 // SELECT
 function selectAll() {
@@ -133,7 +158,7 @@ function selectAll() {
         inputs[i].checked=true;
         todoList.complete_task(inputs[i].id); 
     }
-    show();
+    showTaskList();
 }
 
 function deselectAll() {
@@ -142,7 +167,7 @@ function deselectAll() {
         inputs[i].checked=false;
         todoList.uncomplete_task(inputs[i].id);
     }
-    show();
+    showTaskList();
 }
 
 // COUNTER
@@ -162,7 +187,7 @@ function clearButton() {
         if (inputs[i].checked == true) {
             todoList.remove_task(inputs[i].id)
         }
-    show();     
+    showTaskList();     
     }        
 }
 
@@ -186,7 +211,7 @@ function activeButton() {
     $('#all').removeClass("active");
     $('#Completed').removeClass("active");
     return ($parentInputs.hide(), $inputsNotCh.parents().show());
-    show();
+    showTaskList();
 }
 
 function completedButton() {
@@ -199,5 +224,5 @@ function completedButton() {
     $('#all').removeClass("active");
     $('#active').removeClass("active");
     return ($parentInputs.hide(), $inputsCh.parents().show());  
-    show();
+    showTaskList();
 }
