@@ -26,7 +26,7 @@ h1 {
     background-color: white;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
-#div-badge {
+#counter-badge {
     padding-top: 0;
 }
 #counter {
@@ -61,7 +61,7 @@ h1 {
     opacity: 1;
     color: darkred;
 }
- input[type="checkbox"] {
+input[type="checkbox"] {
 	width: 20px;
 	height: 20px;
 	background: #ddd;
@@ -109,7 +109,7 @@ img.deselect-all {
 .filterButton:hover {
     color: black;
 }
-#all, #active {
+#allFilter, #activeFilter {
     border-right: 1px dashed;
     margin: auto;
     padding-right: 15px;
@@ -118,11 +118,11 @@ img.deselect-all {
 .active {
     color: black;
 }
-#compl-remove {
+#completedRemove {
     font-size: 19px;
 }
 footer {
-    font-size: 12px;
+    font-size: 15px;
 }
 footer p {
     padding: 3px;
