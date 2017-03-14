@@ -1,59 +1,83 @@
+var backend_uri = "https://todo-backend-sinatra.herokuapp.com/todos";
+
 function TodoList() {
-    var tasks = new Map();
-    var current_id = 0;
-    var addTask = function (task) {
-        task.id = current_id
-        tasks.set(current_id, task);
-        current_id += 1;
-        return task;
-    }
-    // JSON object
-    addTask({ description: 'create todo list', completed: false});
-    addTask({ description: 'add filtering by priority', completed: false});
-    addTask({ description: 'use rest api backend', completed: false});
 
     return {
-        complete_task: function (task_id) {
-            task = tasks.get(parseInt(task_id));
-            task.completed = true;
-            return task;
+        complete_task: function (task_uid, onFinish) {
+            var url = backend_uri + "/" + task_uid;
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: JSON.stringify({"completed": true})
+            })
+            .done(function() {
+                onFinish();
+            })
+            return true;
         },
-        uncomplete_task : function(task_id) {
-            task = tasks.get(parseInt(task_id));
-            task.completed = false;
-            return task;
+        uncomplete_task: function(task_uid, onFinish) {
+            var url = backend_uri + "/" + task_uid;
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: JSON.stringify({"completed": false})
+            })
+            .done(function() {
+                onFinish();
+            })
+            return true;
         },
-        edit_task: function(task_id, description) {
-            task = tasks.get(parseInt(task_id));
-            task.description = description;
-            return task;
+        edit_task: function(task_uid, changed_title, onFinish) {
+            var url = backend_uri + "/" + task_uid;
+            $.ajax({
+                url: url,
+                type: 'PATCH',
+                data: JSON.stringify({"title": changed_title})
+            })
+            .done(function() {
+                onFinish();
+            })
+            return true;
         },
-        get_task: function (task_id) {
-            return tasks.get(task_id);
+        add_task: function (task, onFinish) {
+            var parsed_task = JSON.stringify(task)
+            $.post(backend_uri, parsed_task)
+             .done(function() {
+                 onFinish();
+             })
+            return true;
         },
-        add_task: function (task) {
-            return addTask(task);
-        },
-        remove_task: function (task_id) {
-            return tasks.delete(parseInt(task_id));
+        remove_task: function (task_uid, onFinish) {
+            var url = backend_uri + "/" + task_uid;
+            $.ajax({
+                url: url,
+                type: 'DELETE'
+            })
+            .done(function() {
+                onFinish();
+            })
+            return true;
         },
         all_tasks: function () {
-            return tasks.values();
-        },
-        print_all: function () {
-            for (var v of tasks) {
-                console.log(v);
-            }
+            var response = $.ajax({
+                url: backend_uri,
+                async: false,
+                type: 'GET'
+            })
+            var parsed_response = JSON.parse(response.responseText)
+            var sorted_response = parsed_response.sort(function(a, b) { 
+                return a.order < b.order; 
+            })
+            return sorted_response;
         }
     }
 }
+
 var todoList = new TodoList();
 
 function add() {
-    var description = document.getElementById('task').value;
-
-    todoList.add_task({'description': description, 'completed': false});
-    showTaskList();
+    var title = document.getElementById('task').value;
+    todoList.add_task({'title': title}, showTaskList);
     return false;
 }
 
@@ -62,8 +86,7 @@ $("#checkEnterPressed").submit(function(e) {
 });
 
 function changeLabel() {
-    var id = this.getAttribute('id'),
-        description = $('label[id="' + id + '"]').val();
+    var id = this.getAttribute('id');
 
     $('label[id="' + id + '"]').hide();
     $('.edit-input[id="' + id + '"]').show().focus();
@@ -72,55 +95,84 @@ function changeLabel() {
 
 function labelChanged() {
     var id = this.getAttribute('id'),
-        description = $('.edit-input[id="' + id + '"]').val();
+        changed_title = $('.edit-input[id="' + id + '"]').val();
 
-    todoList.edit_task(id, description);
-    showTaskList();
+    todoList.edit_task(id, changed_title, showTaskList);
     return false;
 }
 
-function changeStatus(task_id) {
-    var task = todoList.get_task(task_id);
-
-    if (task.completed == true) {
-        todoList.uncomplete_task(task_id)
+function changeStatus(event) {
+    var todo = event.data.todo;
+    
+    if (todo.completed == true) {
+        todoList.uncomplete_task(todo.uid, showTaskList)
     } else {
-        todoList.complete_task(task_id)
+        todoList.complete_task(todo.uid, showTaskList)
     }
-    showTaskList(); 
 }
 
-function isTaskCompleted(task_id) {
-    var task = todoList.get_task(task_id);
-    return task.completed;  
-}
-
-function checkedProperty(task_id) {
-    if (isTaskCompleted(task_id)) {
-        return "checked=\"true\"";
-    } else {
-        return "";
-    }
+function isTaskCompleted(todo) {
+    return todo.completed == true;  
 }
 
 function remove() {
     var id = this.getAttribute('id');
 
-    todoList.remove_task(id);
-    showTaskList();
+    todoList.remove_task(id, showTaskList);
     return false;
 }
 
 var taskList = function() {
-    var html = '';
+    document.getElementById('todos').innerHTML = '';
+
     for (var todo of todoList.all_tasks()) {
-        var onclick ="onClick=\"changeStatus(" + todo.id + ")\"",
-            checked = checkedProperty(todo.id);
+    console.log(todo.uid + " " + todo.completed);
 
-        html += '<div class="input-group style"><span class="input-group"><input type="checkbox" id="' + todo.id + '" ' + onclick + ' ' + checked + '><label for="checkbox" id="' + todo.id + '" class="edit">' + todo.description + '</label><input class="edit-input" id="' + todo.id + '"/></span><span class="input-group-btn"><button aria-label="Close" class="close remove" id="' + todo.id + '"><span aria-hidden="true">&times;</span></button></span></div>';
+        var div =  $("<div>").attr({
+            'class': "input-group style"
+        });
+
+        var span =  $("<span>").attr({
+            'class': "input-group"
+        }).appendTo(div);
+
+        var input = $("<input>").attr({
+            'type': "checkbox",
+            'id': todo.uid
+        })
+        .prop('checked', todo.completed)
+        .click({todo: todo}, changeStatus)
+        .appendTo(span);
+
+        var label = $("<label>").attr({
+            'for': "checkbox",
+            'id': todo.uid,
+            'class': "edit"
+        })
+        .text(todo.title)
+        .appendTo(span);
+       
+       var editInput = $("<input>").attr({
+            'class': "edit-input",
+            'id': todo.uid
+        }).appendTo(span);
+
+        var spanButton =  $("<span>").attr({
+            'class': "input-group-btn"
+        }).appendTo(div);
+
+        var button = $("<button>").attr({
+            'aria-label': "Close",
+            'class': "close remove",
+            'id': todo.uid
+        }).appendTo(spanButton);
+
+        var spanHidden = $("<span>").attr({
+            'aria-hidden': "true"
+        }).text('X').appendTo(button);
+
+        div.appendTo(todos);
     }
-
-    document.getElementById('todos').innerHTML = html;
 
     var buttons = document.getElementsByClassName('remove'),
         edit = document.getElementsByClassName('edit'),
@@ -212,9 +264,8 @@ function selectAll() {
 
     for (var i = 0; i < inputs.length; i++ ) {
         inputs[i].checked=true;
-        todoList.complete_task(inputs[i].id); 
+        todoList.complete_task(inputs[i].id, showTaskList); 
     }
-    showTaskList();
 }
 
 function deselectAll() {
@@ -222,9 +273,8 @@ function deselectAll() {
 
     for (var i = 0; i < inputs.length; i++ ) {
         inputs[i].checked=false;
-        todoList.uncomplete_task(inputs[i].id);
+        todoList.uncomplete_task(inputs[i].id, showTaskList);
     }
-    showTaskList();
 }
 
 // CLEAR COMPLITED
@@ -233,8 +283,7 @@ function clearButton() {
 
     for (var i = 0; i < inputs.length; i++ ) {
         if (inputs[i].checked == true) {
-            todoList.remove_task(inputs[i].id)
+            todoList.remove_task(inputs[i].id, showTaskList)
         }
-    showTaskList();     
     }        
 }
