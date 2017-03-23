@@ -1,4 +1,5 @@
-var backend_uri = "https://todo-backend-sinatra.herokuapp.com/todos";
+var backend_uri = "https://todo-backend-sinatra.herokuapp.com/todos",
+    counterOrder = 0;
 
 function TodoList() {
 
@@ -13,6 +14,9 @@ function TodoList() {
             .done(function() {
                 onFinish();
             })
+            .fail(function(){
+                 console.log("Completed Task Failed");
+             })
             return true;
         },
         uncomplete_task: function(task_uid, onFinish) {
@@ -25,6 +29,9 @@ function TodoList() {
             .done(function() {
                 onFinish();
             })
+            .fail(function(){
+                 console.log("Uncompleted Task Failed");
+             })
             return true;
         },
         edit_task: function(task_uid, changed_title, onFinish) {
@@ -37,13 +44,21 @@ function TodoList() {
             .done(function() {
                 onFinish();
             })
+            .fail(function(){
+                 console.log("Edit Task Failed");
+             })
             return true;
         },
         add_task: function (task, onFinish) {
-            var parsed_task = JSON.stringify(task)
+            var parsed_task = JSON.stringify(task);
+
+            console.log(parsed_task);
             $.post(backend_uri, parsed_task)
              .done(function() {
                  onFinish();
+             })
+             .fail(function(){
+                 console.log("Add Task Failed");
              })
             return true;
         },
@@ -56,6 +71,9 @@ function TodoList() {
             .done(function() {
                 onFinish();
             })
+            .fail(function(){
+                 console.log("Remove Task Failed");
+             })
             return true;
         },
         all_tasks: function () {
@@ -63,11 +81,19 @@ function TodoList() {
                 url: backend_uri,
                 async: false,
                 type: 'GET'
-            })
-            var parsed_response = JSON.parse(response.responseText)
-            var sorted_response = parsed_response.sort(function(a, b) { 
-                return a.order < b.order; 
-            })
+            });
+            var parsed_response = JSON.parse(response.responseText),
+                maxOrder = Math.max.apply(Math, parsed_response.map(function(o){
+                    return o.order;
+                }));
+
+            if (maxOrder > counterOrder) {
+                counterOrder = maxOrder + 1;
+            }
+            
+            var sorted_response = parsed_response.sort(function(a, b) {
+                    return a.order < b.order; 
+                });
             return sorted_response;
         }
     }
@@ -76,8 +102,11 @@ function TodoList() {
 var todoList = new TodoList();
 
 function add() {
-    var title = document.getElementById('task').value;
-    todoList.add_task({'title': title}, showTaskList);
+    var title = document.getElementById('task').value,
+        counterNext = counterOrder++;
+    
+    todoList.add_task({'title': title, 'order': counterNext}, showTaskList);
+    console.log(title + " " + counterNext);
     return false;
 }
 
@@ -126,7 +155,7 @@ var taskList = function() {
     document.getElementById('todos').innerHTML = '';
 
     for (var todo of todoList.all_tasks()) {
-    console.log(todo.uid + " " + todo.completed);
+    console.log(todo.uid + " " + todo.completed + " " + todo.order);
 
         var div =  $("<div>").attr({
             'class': "input-group style"
@@ -138,9 +167,12 @@ var taskList = function() {
 
         var input = $("<input>").attr({
             'type': "checkbox",
-            'id': todo.uid
+            'id': todo.uid,
+            'order': todo.order
         })
-        .prop('checked', todo.completed)
+        .prop({
+            'checked': todo.completed
+        })
         .click({todo: todo}, changeStatus)
         .appendTo(span);
 
