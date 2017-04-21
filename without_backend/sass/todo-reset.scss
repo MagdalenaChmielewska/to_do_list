@@ -29,13 +29,19 @@ body {
 ol, ul {
 	list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote {
+    quotes: none;
+    &:before, &:after {
+    content: '';
+    content: none; 
+    } 
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+q {
+    quotes: none;
+    &:before, &:after {
+    content: '';
+    content: none; 
+    } 
 }
 table {
 	border-collapse: collapse;
