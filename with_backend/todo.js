@@ -110,7 +110,7 @@ function add() {
     return false;
 }
 
-$("#checkEnterPressed").submit(function(e) {
+$("form").submit(function(e) {
     e.preventDefault();
 });
 
@@ -236,7 +236,7 @@ function calculateCounter() {
 // FILTERS
 var activeFilter = "all";
 
-function allButton() {
+var allSelected = function () {
     activeFilter = "all";
     var inputs = $("input[type=checkbox]");
     $('#allFilter').addClass("active");
@@ -244,8 +244,9 @@ function allButton() {
     $('#activeFilter').removeClass("active");
     return inputs.parents().show();
 }
+document.querySelector("#allFilter").addEventListener('click', allSelected, false);
 
-function activeButton() {
+var activeSelected = function() {
     activeFilter = "active";
     var $inputs = $("div input[type=checkbox]"),
         $inputsCh = $inputs.filter(":checked"),
@@ -257,8 +258,9 @@ function activeButton() {
     return ($parentInputs.hide(), $inputsNotCh.parents().show());
     showTaskList();
 }
+document.querySelector("#activeFilter").addEventListener('click', activeSelected, false);
 
-function completedButton() {
+var completedSelected = function() {
     activeFilter = "completed";
     var $inputs = $("div input[type=checkbox]"),
         $inputsCh = $inputs.filter(":checked"),
@@ -270,14 +272,15 @@ function completedButton() {
     return ($parentInputs.hide(), $inputsCh.parents().show());  
     showTaskList();
 }
+document.querySelector("#completedFilter").addEventListener('click', completedSelected, false);
 
 var filterTasksBy = function(filter) {
     if(activeFilter == "all") {
-        allButton();
+        allSelected();
     } else if(activeFilter == "active") {
-        activeButton();        
+        activeSelected();        
     } else {
-        completedButton();
+        completedSelected();
     }
 }
 
@@ -299,6 +302,7 @@ function selectAll() {
         todoList.complete_task(inputs[i].id, showTaskList); 
     }
 }
+document.querySelector("#selectAll").addEventListener('click', selectAll, false);
 
 function deselectAll() {
     var inputs = $("input[type=checkbox]");
@@ -308,9 +312,10 @@ function deselectAll() {
         todoList.uncomplete_task(inputs[i].id, showTaskList);
     }
 }
+document.querySelector("#deselectAll").addEventListener('click', deselectAll, false);
 
 // CLEAR COMPLITED
-function clearButton() {
+function completedRemove() {
     var inputs = $("input[type=checkbox]");
 
     for (var i = 0; i < inputs.length; i++ ) {
@@ -319,3 +324,4 @@ function clearButton() {
         }
     }        
 }
+document.querySelector("#completedRemove").addEventListener('click', completedRemove, false);

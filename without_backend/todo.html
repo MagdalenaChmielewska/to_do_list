@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>To Do List</title>
+    <meta name="description" content="ToDo List">
+    <meta name="author" content="Magdalena Chmielewska">
+    <title>ToDo List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
@@ -31,27 +31,49 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 main-all" id="main">
-            <form id="checkEnterPressed">
-              <div class="col-lg-10"><input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus></div>
-              <div class="col-lg-2"><input type="submit" id="add" class="btn btn-default btn-lg" value="Add"></div>
+            <form>
+              <div class="col-lg-10">
+                <input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus>
+              </div>
+              <div class="col-lg-2">
+                <input type="submit" id="add" class="btn btn-default btn-lg" value="Add">
+              </div>
               <div id="todos" class="col-lg-12"></div>
             </form>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 main-all" id="counter-badge">
+          <div class="col-lg-8 col-lg-offset-2 main-all counter-badge">
             <p class="pull-right"><span class="badge" id="counter"></span> items left</p>
             <br>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 main-all" id="main-footer">
-              <div class="col-lg-1" id="select1"><a href="javascript:void(0)" title="Select All" onClick="selectAll()"><img src="img/select.png" alt="select-all" class="select-all"/><center>Select All</center></a></div>
-              <div class="col-lg-1"><a href="javascript:void(0)" title="Deselect All" onClick="deselectAll()"><img src="img/select.png" alt="deselect-all" class="deselect-all"/><center>Deselect All</center></a></div>
-              <div class="col-lg-2 col-lg-offset-1"><p class="active filterButton" id="allFilter" onClick="allButton()">All</p></div>
-              <div class="col-lg-2"><p class="filterButton" id="activeFilter" onClick="activeButton()">Active</p></div>
-              <div class="col-lg-2"><p class="filterButton" id="completedFilter" onClick="completedButton()">Completed</p></div>
-              <div class="col-lg-2 col-lg-offset-1"><p class="btn btn-default pull-left" id="completedRemove" onClick="clearButton()">Clear Completed</p></div>
+              <div class="col-lg-1" id="selectAll">
+                <a href="javascript:void(0)" title="Select All">
+                  <img src="img/select.png" alt="select-all">
+                  <center>Select All</center>
+                </a>
+              </div>
+              <div class="col-lg-1" id="deselectAll">
+                <a href="javascript:void(0)" title="Deselect All">
+                  <img src="img/select.png" alt="deselect-all" class="deselect-all">
+                  <center>Deselect All</center>
+                </a>
+              </div>
+              <div class="col-lg-2 col-lg-offset-1">
+                <p class="active filterButton" id="allFilter">All</p>
+              </div>
+              <div class="col-lg-2">
+                <p class="filterButton" id="activeFilter">Active</p>
+              </div>
+              <div class="col-lg-2">
+                <p class="filterButton" id="completedFilter">Completed</p>
+              </div>
+              <div class="col-lg-2 col-lg-offset-1">
+                <p class="btn btn-default pull-left" id="completedRemove">Clear Completed</p>
+              </div>
           </div>
         </div>
       </div>
