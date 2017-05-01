@@ -18,77 +18,54 @@
 
   <body>
     <header>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2">
-            <h1>ToDo List</h1>
-          </div>
-        </div>
-      </div>
+      <h1>ToDo List</h1>
     </header>
 
     <main>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 main-all" id="main">
-            <form>
-              <div class="col-lg-10">
-                <input id="task" placeholder="What needs to be done?" class="form-control input-lg" autofocus>
-              </div>
-              <div class="col-lg-2">
-                <input type="submit" id="add" class="btn btn-default btn-lg" value="Add">
-              </div>
-              <div id="todos" class="col-lg-12"></div>
-            </form>
-          </div>
+      <div>
+        <div class="main-all">
+          <form id="main">
+            <input id="task" placeholder="What needs to be done?" class="input-lg" autofocus>
+            <input type="submit" id="add" class="btn btn-default btn-lg" value="Add">
+            <div id="todos"></div>
+          </form>
         </div>
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 main-all counter-badge">
-            <p class="pull-right"><span class="badge" id="counter"></span> items left</p>
+        <div class="main-all counter-badge">
+          <p class="pull-right"><span class="badge" id="counter"></span> items left</p>
+        </div>
+        <div class="main-all" id="main-footer">
+          <div class="select-button-group">
+            <div id="selectAll" class="pull-left select-button">
+              <a href="javascript:void(0)" title="Select All">
+                <img src="img/select.png" alt="select-all">
+                <center>Select All</center>
+              </a>
+            </div>
+            <div id="deselectAll" class="pull-right select-button">
+              <a href="javascript:void(0)" title="Deselect All">
+                <img src="img/select.png" alt="deselect-all" class="deselect-all">
+                <center>Deselect All</center>
+              </a>
+            </div>
+          </div>
+          <div>
+          <div class="filter-buttons-group">
+            <p class="active filterButton" id="allFilter">All</p>
+            <p class="filterButton" id="activeFilter">Active</p>
+            <p class="filterButton" id="completedFilter">Completed</p>
             <br>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 main-all" id="main-footer">
-              <div class="col-lg-1" id="selectAll">
-                <a href="javascript:void(0)" title="Select All">
-                  <img src="img/select.png" alt="select-all">
-                  <center>Select All</center>
-                </a>
-              </div>
-              <div class="col-lg-1" id="deselectAll">
-                <a href="javascript:void(0)" title="Deselect All">
-                  <img src="img/select.png" alt="deselect-all" class="deselect-all">
-                  <center>Deselect All</center>
-                </a>
-              </div>
-              <div class="col-lg-2 col-lg-offset-1">
-                <p class="active filterButton" id="allFilter">All</p>
-              </div>
-              <div class="col-lg-2">
-                <p class="filterButton" id="activeFilter">Active</p>
-              </div>
-              <div class="col-lg-2">
-                <p class="filterButton" id="completedFilter">Completed</p>
-              </div>
-              <div class="col-lg-2 col-lg-offset-1">
-                <p class="btn btn-default pull-left" id="completedRemove">Clear Completed</p>
-              </div>
+            <p class="btn btn-default" id="completedRemove">Clear Completed</p>
           </div>
         </div>
       </div>
     </main>
 
     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 text-muted">
-            <hr>
-            <p>Double-click to edit a task</p>
-			      <p>Created by Magda</p>
-            <p>Copyright © Your Website 2017</p>
-          </div>
-        </div>
+      <div class="text-muted">
+        <hr>
+        <p>Double-click to edit a task</p>
+			  <p>Created by Magda</p>
+        <p>Copyright © Your Website 2017</p>
       </div>
     </footer>
 
