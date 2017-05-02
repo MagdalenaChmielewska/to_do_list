@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is demonstration of usage of technologies like: HTML5, CSS3, SASS, Javascript, jQuery and REST API.  
+This project is demonstration of usage of technologies like: HTML5, CSS3, SASS, RWD, Javascript, jQuery and REST API.  
 
 Todo list is available in two versions. In both options are the same.
 1. Without backend integration (REST API)  
@@ -10,7 +10,7 @@ Todo list is available in two versions. In both options are the same.
 2. With backend integration (REST API)   
     This version has integration with existing REST API [Heroku](https://todo-backend-sinatra.herokuapp.com/todos). You can add, edit and remove tasks. All your tasks will be saved on server.
 
-In order to edit a task you have to double-click. 
+In order to edit a task you have to double-click or touch the screen and swipe your finger a little (on mobile devices).
 
 ## How convert sass to css
 
@@ -27,6 +27,7 @@ sass --watch with_backend\sass\todo.scss:with_backend\css\todo.css
 sass --watch without_backend\sass\todo.scss:without_backend\css\todo.css
 ```
 
-## Screens
+## Screens  
  
 ![Img](https://github.com/MagdalenaChmielewska/todo_list/blob/master/showcase/todo_list.png)
+![Img](https://github.com/MagdalenaChmielewska/todo_list/blob/master/showcase/todo_list_mobile.png)

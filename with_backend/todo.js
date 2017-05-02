@@ -216,6 +216,7 @@ var taskList = function() {
   
     for (var i = 0; i < edit.length; i++) {
         edit[i].addEventListener('dblclick', changeLabel);
+        edit[i].addEventListener('touchmove', changeLabel);
     };
 
     for (var i = 0; i < edit_inputs.length; i++) {
@@ -236,7 +237,7 @@ function calculateCounter() {
 // FILTERS
 var activeFilter = "all";
 
-var allSelected = function () {
+var filterByAll = function () {
     activeFilter = "all";
     var inputs = $("input[type=checkbox]");
     $('#allFilter').addClass("active");
@@ -244,9 +245,9 @@ var allSelected = function () {
     $('#activeFilter').removeClass("active");
     return inputs.parents().show();
 }
-document.querySelector("#allFilter").addEventListener('click', allSelected, false);
+document.querySelector("#allFilter").addEventListener('click', filterByAll, false);
 
-var activeSelected = function() {
+var filterByActive = function() {
     activeFilter = "active";
     var $inputs = $("div input[type=checkbox]"),
         $inputsCh = $inputs.filter(":checked"),
@@ -258,9 +259,9 @@ var activeSelected = function() {
     return ($parentInputs.hide(), $inputsNotCh.parents().show());
     showTaskList();
 }
-document.querySelector("#activeFilter").addEventListener('click', activeSelected, false);
+document.querySelector("#activeFilter").addEventListener('click', filterByActive, false);
 
-var completedSelected = function() {
+var filterByCompleted = function() {
     activeFilter = "completed";
     var $inputs = $("div input[type=checkbox]"),
         $inputsCh = $inputs.filter(":checked"),
@@ -272,15 +273,15 @@ var completedSelected = function() {
     return ($parentInputs.hide(), $inputsCh.parents().show());  
     showTaskList();
 }
-document.querySelector("#completedFilter").addEventListener('click', completedSelected, false);
+document.querySelector("#completedFilter").addEventListener('click', filterByCompleted, false);
 
 var filterTasksBy = function(filter) {
     if(activeFilter == "all") {
-        allSelected();
+        filterByAll();
     } else if(activeFilter == "active") {
-        activeSelected();        
+        filterByActive();        
     } else {
-        completedSelected();
+        filterByCompleted();
     }
 }
 

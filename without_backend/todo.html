@@ -35,13 +35,13 @@
         </div>
         <div class="main-all" id="main-footer">
           <div class="select-button-group">
-            <div id="selectAll" class="pull-left select-button">
+            <div id="selectAll" class="select-button">
               <a href="javascript:void(0)" title="Select All">
                 <img src="img/select.png" alt="select-all">
                 <center>Select All</center>
               </a>
             </div>
-            <div id="deselectAll" class="pull-right select-button">
+            <div id="deselectAll" class="select-button">
               <a href="javascript:void(0)" title="Deselect All">
                 <img src="img/select.png" alt="deselect-all" class="deselect-all">
                 <center>Deselect All</center>
@@ -49,13 +49,14 @@
             </div>
           </div>
           <div>
-          <div class="filter-buttons-group">
-            <p class="active filterButton" id="allFilter">All</p>
-            <p class="filterButton" id="activeFilter">Active</p>
-            <p class="filterButton" id="completedFilter">Completed</p>
-            <br>
-            <p class="btn btn-default" id="completedRemove">Clear Completed</p>
-          </div>
+            <div class="filter-buttons-group">
+              <p class="active filterButton" id="allFilter">All</p>
+              <p class="filterButton" id="activeFilter">Active</p>
+              <p class="filterButton" id="completedFilter">Completed</p>
+            </div>
+            <div class="button-clear-completed">
+              <p class="btn btn-default" id="completedRemove">Clear Completed</p>
+            </div>
         </div>
       </div>
     </main>
@@ -63,7 +64,8 @@
     <footer>
       <div class="text-muted">
         <hr>
-        <p>Double-click to edit a task</p>
+        <p class="footer-on-screen">Double-click to edit a task</p>
+        <p class="footer-on-mobile">Touch the screen and swipe your finger a little to edit a task</p>
 			  <p>Created by Magda</p>
         <p>Copyright © Your Website 2017</p>
       </div>

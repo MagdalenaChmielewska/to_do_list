@@ -107,7 +107,7 @@ img.deselect-all {
     opacity: 0.5;
 }
 .deselect-all {
-    margin-left: 10px;
+    margin-left: 10px;   
 }
 .filter-buttons-group {
     display: inline;
@@ -136,29 +136,25 @@ footer {
     }
 }
 
-// @media (max-width: 1150px) and (min-width: 600px) {
-//     body {
-//         background-color: red;
-//     }
-// }
+@media (max-width: 620px) {
+    #deselectAll {
+        float: right;
+    }
+    #selectAll {
+        float: left;
+    }
+    .footer-on-screen {
+        display: none;
+    }
+}
 
-@media (min-width: 1150px) {
-    main {
-        width: 45%;
+@media (min-width: 620px) {
+    main, footer {
         margin: auto;
     }
     header {
         font-size: 12rem;
         margin-bottom: 50px;
-    }
-    #task {
-        width: 80%;
-        margin: auto;
-        margin-right: 25px;
-    }
-    #add {
-        width: 13%;
-        margin: auto;
     }
     #todos {
         margin-top: 20px;
@@ -166,8 +162,71 @@ footer {
     .select-button {
         font-size: 2rem;
     }
+    #task {
+        margin: auto;
+    }
+    #add {
+        width: auto;
+        margin: auto;
+    }
+    #main-footer {
+        height: 160px;
+        box-sizing: border-box;
+    }
+    .select-button-group {
+        position: absolute;
+        float: left;
+        height: 100%;
+        .select-button {
+            padding-bottom: 10px;
+        }
+    }
+    .filter-buttons-group {
+        display: inline;
+        right: 20px;
+    }
+    .button-clear-completed {
+        position: relative;
+        float: right;
+        margin: 0;
+        padding: 0;
+        top: -100px;  
+    }
     footer {
-        @extend main;
         margin-top: 45px;
+    }
+    @media (max-width: 1150px) {
+        main, footer {
+            width: 60%;
+        }
+        #task {
+            width: 70%;
+            margin-right: 20px;
+        }
+        .footer-on-screen {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 1150px) {
+    main, footer {
+        width: 45%;
+    }
+    #task {
+        width: 80%;
+        margin-right: 25px;
+    }
+    #add {
+        width: 13%;
+    }
+    .select-button-group {
+        margin-left: 20px;
+    }
+    .button-clear-completed {
+        margin-right: 10px; 
+    }
+    .footer-on-mobile {
+        display: none;
     }
 }
