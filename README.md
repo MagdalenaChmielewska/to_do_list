@@ -29,5 +29,5 @@ sass --watch without_backend\sass\todo.scss:without_backend\css\todo.css
 
 ## Screens  
  
-![Img](https://github.com/MagdalenaChmielewska/todo_list/blob/master/showcase/todo_list.png)
+![Img](https://github.com/MagdalenaChmielewska/todo_list/blob/master/showcase/todo_list_screen.png)
 ![Img](https://github.com/MagdalenaChmielewska/todo_list/blob/master/showcase/todo_list_mobile.png)
