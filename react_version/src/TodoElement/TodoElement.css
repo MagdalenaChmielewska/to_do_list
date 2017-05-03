@@ -24,9 +24,6 @@ input[type="checkbox"]:checked + label {
   text-decoration: line-through;
   opacity: 0.5; }
 
-.edit-input {
-  display: none; }
-
 .style {
   margin: 12px;
   padding: 10px;

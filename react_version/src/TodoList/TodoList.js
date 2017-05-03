@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import './TodoList.css';
 import TodoElement from '../TodoElement/TodoElement'
 
+const backend_uri = "https://todo-backend-sinatra.herokuapp.com/todos";
+
 class TodoList extends Component {
   constructor() {
     super();
 
     this.state = {
       currentTask: "",
-      todoList: [
-        {order: 1, title: 'create todo list1', completed: false},
-        {order: 2, title: 'create todo list2', completed: false},
-        {order: 3, title: 'create todo list3', completed: false}
-      ],
-      count: 3
+      todoList: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,15 +18,30 @@ class TodoList extends Component {
     this.addTask = this.addTask.bind(this);
   }
 
+
+  fetchTasks() {
+    return fetch(backend_uri)
+      .then(result => result.json())
+      .then(items => items.sort((a,b) => a.uid > b.uid))
+      .then(items => this.setState({todoList: items})) 
+  }
+  
+  componentDidMount() {
+    this.fetchTasks()
+  }
+
   addTask() {
-    const order = this.state.count + 1
     const currentTask = {
-      order: order,
       title: this.state.currentTask,
       completed: false
     }
 
-    this.setState({todoList: this.state.todoList.concat(currentTask)})
+    fetch(backend_uri, {
+        method: 'POST',
+        body: JSON.stringify(currentTask)
+      })
+      .then(result => result.json())
+      .then(task => this.setState({todoList: this.state.todoList.concat(task)}))
   }
 
   handleChange(event) {
@@ -38,6 +50,11 @@ class TodoList extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+  }
+
+  onTaskChange() {
+    this.fetchTasks()
+      .then(this.forceUpdate())
   }
 
   render() {
@@ -50,7 +67,7 @@ class TodoList extends Component {
               <input type="submit" id="add" className="btn btn-default btn-lg" value="Add" onClick={this.addTask}/>
               <div id="todos">
                 {this.state.todoList.map(element => (
-                   <TodoElement key={element.order} task={element}/>
+                   <TodoElement key={element.uid} task={element} onTaskChange={this.onTaskChange.bind(this)} />
                 ))}
               </div>
             </form>
@@ -64,4 +81,3 @@ class TodoList extends Component {
 }
 
 export default TodoList;
-

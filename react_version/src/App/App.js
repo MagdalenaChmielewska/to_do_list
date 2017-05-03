@@ -18,7 +18,7 @@ class App extends Component {
         <div className="text-muted">
           <hr/>
           <p className="footer-on-screen">Double-click to edit a task</p>
-          <p className="footer-on-screen">Double-click to edit a task</p>
+          <p className="footer-on-mobile">Touch the screen and swipe your finger a little to edit a task</p>
           <p>Created by Magda</p>
           <p>Copyright © Your Website 2017</p>
         </div>
