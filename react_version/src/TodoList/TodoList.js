@@ -27,6 +27,7 @@ class TodoList extends Component {
     this.addTask = this.addTask.bind(this);
 
     this.selectAll = this.selectAll.bind(this);
+    this.onTaskChange = this.onTaskChange.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
     this.clearCompleted = this.clearCompleted.bind(this);
     this.uncompleteTask = this.uncompleteTask.bind(this);
@@ -38,7 +39,9 @@ class TodoList extends Component {
     return fetch(backend_uri)
       .then(result => result.json())
       .then(items => items.sort((a,b) => a.uid > b.uid))
-      .then(items => this.setState({todoList: items})) 
+      .then(items => {
+        this.setState({todoList: items})
+      }) 
   }
 
   unCompletedTasks() {
@@ -109,7 +112,10 @@ class TodoList extends Component {
 
   componentDidMount() {
     this.fetchTasks()
-      .then(x => this.setState({displayedTodoList: this.state.todoList}))
+      .then(x => {
+        this.setState({displayedTodoList: this.state.todoList})
+      })
+
   }
 
   addTask() {
@@ -123,7 +129,7 @@ class TodoList extends Component {
         body: JSON.stringify(currentTask)
       })
       .then(result => result.json())
-      .then(task => this.setState({todoList: this.state.todoList.concat(task)}))
+      .then(result => this.onTaskChange())
   }
 
   handleChange(event) {
@@ -137,7 +143,7 @@ class TodoList extends Component {
   onTaskChange() {
     return this.fetchTasks()
       .then(x => this.setState({displayedTodoList: this.state.todoList}))
-      .then(this.forceUpdate())
+      .then(x => this.forceUpdate())
   }
 
   render() {
