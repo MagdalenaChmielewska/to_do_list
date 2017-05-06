@@ -8,7 +8,7 @@ class TodoElement extends Component {
     this.state = {
       editedTask: "",
       isEditing: false,
-      taskCompleted: this.props.task.completed,
+      taskCompleted: this.props.completed,
     };
 
     this.removeTask = this.removeTask.bind(this)
