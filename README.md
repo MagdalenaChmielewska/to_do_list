@@ -2,13 +2,15 @@
 
 ## Description
 
-This project is demonstration of usage of technologies like: HTML5, CSS3, SASS, RWD, Javascript, jQuery and REST API.  
+This project is demonstration of usage of technologies like: HTML5, CSS3, SASS, RWD, Javascript, jQuery, REST API and REACT.  
 
-Todo list is available in two versions. In both options are the same.
+Todo list is available in three versions. In each options are the same.
 1. Without backend integration (REST API)  
     On init 3 tasks are added automatically. You can add, edit and remove tasks. But after the page refresh todo list goes back to the original version.
 2. With backend integration (REST API)   
-    This version has integration with existing REST API [Heroku](https://todo-backend-sinatra.herokuapp.com/todos). You can add, edit and remove tasks. All your tasks will be saved on server.
+    This version has integration with existing REST API [Heroku](https://todo-backend-sinatra.herokuapp.com/todos). You can add, edit and remove tasks. All your tasks will be saved on server.  
+3. React version [In-progress]  
+    This version is just like "with backend integration" but written in React. 
 
 In order to edit a task you have to double-click or touch the screen and swipe your finger a little (on mobile devices).
 
@@ -25,6 +27,21 @@ sass --watch with_backend\sass\todo.scss:with_backend\css\todo.css
 2. For version without backend:
 ```bash
 sass --watch without_backend\sass\todo.scss:without_backend\css\todo.css
+```
+  
+## How to run React version  
+Go to directory with TODO list written in React
+```
+cd react_version
+```
+
+If you are running this app for the first time please run:
+```bash
+npm init
+```
+If you want to run React version please use following command:  
+```bash
+npm start
 ```
 
 ## Screens  

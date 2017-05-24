@@ -1,3 +1,63 @@
-#todos {
-    padding: 6px;
+$font-family-main: 'Ranga', cursive;
+$font-family-second: 'Caveat Brush', cursive;
+
+.main-all {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+#main {  
+    text-align: left;
+    font-size: 25px;
+    line-height: 1.2;
+    display: inline;
+}
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+#task {
+    font-size: 25px;
+    line-height: 1.2;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.counter-badge {
+    padding-top: 0;
+}
+#counter {
+    font-family: $font-family-second;
+    font-size: 17px;
+}
+
+img.deselect-all {
+    opacity: 0.5;
+}
+#selectAll, #deselectAll {
+    cursor: pointer;
+}
+.deselect-all {
+    margin-left: 10px;   
+}
+.filter-buttons-group {
+    display: inline;
+    font-size: 20px;
+    cursor: pointer;
+}
+.filterButton {
+    color:#9F9F9F;
+    padding-bottom: 15px;
+    cursor: pointer;
+    &:hover {
+        color: black;
+    }
+}
+#allFilter, #activeFilter {
+    margin: auto;
+}
+.active {
+    color: black;
+}
+#completedRemove {
+    font-size: 19px;
 }

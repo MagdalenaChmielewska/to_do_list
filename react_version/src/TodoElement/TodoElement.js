@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import './TodoElement.css';
 
 class TodoElement extends Component {
@@ -97,4 +98,3 @@ class TodoElement extends Component {
 }
 
 export default TodoElement;
-

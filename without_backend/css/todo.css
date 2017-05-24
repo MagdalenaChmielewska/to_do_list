@@ -139,16 +139,21 @@ a {
 img.deselect-all {
   opacity: 0.5; }
 
+#selectAll, #deselectAll {
+    cursor: pointer; }
+
 .deselect-all {
   margin-left: 10px; }
 
 .filter-buttons-group {
   display: inline;
-  font-size: 2rem; }
+  font-size: 2rem;
+  cursor: pointer; }
 
 .filterButton {
   color: #9F9F9F;
-  padding-bottom: 15px; }
+  padding-bottom: 15px;
+  cursor: pointer; }
   .filterButton:hover {
     color: black; }
 
